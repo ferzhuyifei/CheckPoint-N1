@@ -23,30 +23,30 @@ module.exports = {
   },
   // ==== COMPLETEN LAS SIGUIENTES FUNCIONES (vean los test de `model.js`) =====
   listPeople: function () {
-    let persona=[]
-    for(let element in tasks){
-      persona.push(element)
+    //return Object.keys(tasks);
+    //O
+    let persona = [];
+    for (let element in tasks) {
+      persona.push(element);
     }
-    return persona
+    return persona;
   },
-  add: function (name, task) {
-    let nuevaTarea=task
-    if(!nuevaTarea.complete){
-      nuevaTarea.complete=false
-    }
-    if(tasks[name]){
-      tasks[name].push(task)
-    }else{
-    tasks[name]=[task]
-    }
+  add: function (name, { content, complete }) {
+    if (!tasks[name]) tasks[name] = [];
+    let tarea = {};
+    tarea["content"] = content;
+    tarea["complete"] = complete || false;
+    tasks[name].push(tarea);
+    return tarea;
   },
-  list: function(name){
-    return tasks[name]
+  list: function (name) {
+    return tasks[name]; //busca la propiedad con ese nombre, por eso bracket notation
   },
-  complete: function(name,number){
-    tasks[name][number].complete=true
+  complete: function (name, number) {
+    //tasks[name][number].complete = true;
+    this.list(name)[number].complete = true;
   },
-  remove: function(name,number){
-    tasks[name].splice(number,1)
-  }
+  remove: function (name, number) {
+    tasks[name].splice(number, 1);
+  },
 };
